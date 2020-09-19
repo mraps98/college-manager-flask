@@ -1,0 +1,62 @@
+{%extends 'base.html'%}
+{%block head%}
+<title>Courses for {{student.fname}} {{student.lname}}</title>
+{%endblock%}
+{%block body%}
+<div class="container">
+    <h1>Courses for {{student.fname}} {{student.lname}}</h1>
+        {%if student.courses|length == 0%}
+        This student hasn't been enrolled in any courses yet.
+        {%else%}
+        <div class="box">
+            <table>
+                <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Instructor</th>
+                    <th>Actions</th>
+                </tr>
+                {%for course in student.courses%}
+                <tr>
+                    <td>{{course.code}}</td>
+                    <td>{{course.name}}</td>
+                    <td>{{course.instructor.fname}} {{course.instructor.lname}}</td>
+                    <td>
+                        <form action="/student/unenroll" method='POST'>
+                            <span style='display:none'>
+                                <input type="text" name='student_id' value={{student.id}}>
+                                <input type="text" name='course_id' value={{course.id}}>
+                                <input type="text" name='redirect_to' value='student'>
+                            </span>
+                            <button type="submit">Unenroll</button>
+                        </form>
+                    </td>
+                </tr>
+                    {%endfor%}
+            </table>
+        {%endif%}
+        </div>
+        <div class="box">
+            <form action="/student/enroll" method="post">
+                <h3>
+                    Enroll student in courses
+                </h3>
+                <span style="display:none">
+                    <input type="text" name='student_id' value={{student.id}}>
+                    <input type="text" name='redirect_to' value='student'>
+                </span>
+                {%if courses|length > 0%}
+                <select name="course_id" id="course_id">
+                    {%for course in courses%}
+                        <option value="{{course.id}}">{{course.code}} {{course.name}}</option>
+                        {%endfor%}
+                    </select>
+                    <button type="submit">Enroll</button>
+                {%endif%}
+            </form>
+        </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[1].classList.add('active');
+</script>
+{%endblock%}

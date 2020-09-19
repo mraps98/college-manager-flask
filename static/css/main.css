@@ -1,0 +1,64 @@
+body{
+    width:50%;
+    margin:auto;
+}
+nav{
+    margin-top:0;
+    text-align:center;
+    border-bottom:1px solid black;
+}
+nav ul{
+    margin:0;
+    padding:0;
+}
+nav li{
+    display:inline;
+}
+nav li a, .container a, button{
+    transition-duration: 0.5s;
+    margin:0;
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #333333;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+}
+nav li a:hover, .container a:hover, button:hover{
+    transition-duration: 0.5s;
+    background-color: #EEEEDD;
+    cursor:pointer;
+}
+.active{
+    background-color:#CCCCCC;
+}
+.container{
+    overflow-x:auto;
+}
+.box{
+    /* border:1px solid #ccc; */
+    padding:2%;
+    width:auto;
+    /* box-shadow:2px 2px 10px black; */
+}
+table{
+    margin:1% 0;
+    width:100%;
+}
+tr:nth-child(even){
+    background-color: #EEEEEE;
+}
+td{
+    padding:.5% 1%;
+}
+.form-container{
+    display:grid;
+    grid-template-columns:3fr 7fr;
+}
+input, label, select, button{
+    margin:1%;
+    padding:1.5%;
+}

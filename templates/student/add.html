@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block header %} 
+<title>Add Student</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Add Student</h1>
+    <div class="box">
+            <form action="/student/add" method='POST'>
+                <div class="form-container">
+                    <label for="fname">First Name</label>
+                    <input type="text" name='fname'>
+                    <label for="lname">Last Name</label>
+                    <input type="text" name='lname'>
+                    <label for="dob">Date of Birth</label>
+                    <input type="text" name='dob'>
+                    <label for="advisor">Advisor</label>
+                    <select name="advisor_id" id="advisor">
+                        {% for instructor in instructors %}
+                        <option value="{{instructor.id}}">{{instructor.fname}} {{instructor.lname}}</option>
+                        {% endfor%}}
+                    </select>
+                    <label for="majorid">Major</label>
+                    <select name="major_id" id="major">
+                        {% for department in departments %}
+                        <option value="{{department.id}}">{{department.name}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <button type="submit">Add Student</button>
+            </form>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[1].classList.add('active');
+</script>
+{% endblock %}

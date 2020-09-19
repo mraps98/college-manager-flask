@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+{%block head%}
+<title>Courses for {{instructor.fname}} {{instructor.lname}}</title>
+{%endblock%}
+{%block body%}
+<div class="container">
+    <h1>Courses for {{instructor.fname}} {{instructor.lname}}</h1>
+        {%if instructor.courses|length == 0%}
+        This instructor hasn't been enrolled in any courses yet.
+        {%else%}
+        <div class="box">
+            <table>
+                <tr>
+                    <th>Course ID</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Actions</th>
+                </tr>
+                {%for course in instructor.courses%}
+                <tr>
+                    <td>{{course.id}}</td>
+                    <td>{{course.code}}</td>
+                    <td>{{course.name}}</td>
+                    <td>
+                        <a href="/course/{{course.id}}/students">Students Enrolled</a>
+                    </td>
+                </tr>
+                    {%endfor%}
+            </table>
+        {%endif%}
+    </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[2].classList.add('active');
+</script>
+{%endblock%}

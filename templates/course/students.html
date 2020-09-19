@@ -1,0 +1,68 @@
+{%extends 'base.html'%}
+{%block header%}
+<title>Students in {{course.code}}</title>
+{%endblock%}
+{%block body%}
+<div class="container">
+    <h1>Students enrolled in {{course.code}}:{{course.name}}</h1>
+    <div class="box">
+        {%if course.students_enrolled|length ==0%}
+            No Students enrolled in course
+        {%else%}
+        <table>
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>DOB</th>
+                <th>Major</th>
+                <th>Advisor</th>
+                <th>Actions</th>
+            </tr>
+            {%for student in course.students_enrolled%}
+                <tr>
+                    <td>{{student.id}}</td>
+                    <td>{{student.fname}} {{student.lname}}</td>
+                    <td>{{student.dob}}</td>
+                    <td>{{student.major.name}}</td>
+                    <td>{{student.advisor.fname}} {{student.advisor.lname}}</td>
+                    <td>
+                        <form action="/student/unenroll" method='POST'>
+                            <span style='display:none'>
+                                <input type="text" value='{{student.id}}' name='student_id'>
+                                <input type="text" value='{{course.id}}' name='course_id'>
+                                <input type="text" value='course' name='redirect_to'>
+                            </span>
+                            <button type="submit">Unenroll</button>
+                        </form>
+                    </td>
+                </tr>
+            {%endfor%}
+        </table>
+        {%endif%}
+        <div class="box">
+            <h3>
+                Enroll students in course
+            </h3>
+            <form action="/student/enroll", method='POST'>
+                <span style='display:none'>
+                    <input type="text" name='course_id' value={{course.id}}>
+                    <input type="text" name='redirect_to' value='course'>
+                </span>
+                {%if students|length == 0%}
+                    No students in database of all students already enrolled
+                {%else%}
+                <select name="student_id" id="student_id">
+                    {%for student in students%}
+                        <option value="{{student.id}}">{{student.fname}} {{student.lname}}</option>
+                    {%endfor%}
+                </select>
+                <button type="submit">Enroll</button>
+                {%endif%}
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[3].classList.add('active');
+</script>
+{%endblock%}

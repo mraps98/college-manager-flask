@@ -1,0 +1,44 @@
+{%extends 'base.html'%}
+{%block header%}
+<title>{{department.name}}: Instructors</title>
+{%endblock%}
+{%block body%}
+<div class="container">
+    <h1>{{department.name}}: Instructors</h1>
+    <div class="box">
+        {%if department.instructors|length == 0%}
+            No instructors in this department. <a href="/instructor/add">Add Instructor</a>
+        {%else%}
+            <table>
+                <tr>
+                    <th>Instructor ID</th>
+                    <th>Name</th>
+                    <th>DOB</th>
+                    <th>Actions</th>
+                </tr>
+                {%for instructor in department.instructors%}
+                    <tr>
+                        <td>{{instructor.id}}</td>
+                        <td>{{instructor.fname}} {{instructor.lname}}</td>
+                        <td>{{instructor.dob}}</td>
+                        <td>
+                            {%if department.head.id != instructor.id%}
+                            <form action="/department/makehead", method='POST'>
+                                <span style='display:none'>
+                                    <input type="text" name='instructor_id' value={{instructor.id}}>
+                                    <input type="text" name='department_id' value={{department.id}}>
+                                </span> 
+                                <button type="submit">Make Head</button>
+                            </form>
+                            {%endif%}
+                        </td>
+                    </tr>
+                {%endfor%}
+            </table>
+        {%endif%}
+    </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[4].classList.add('active');
+</script>
+{%endblock%}

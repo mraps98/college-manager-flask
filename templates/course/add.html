@@ -1,0 +1,43 @@
+{%extends 'base.html'%}
+{%block header%}
+<title>Add New Course</title>
+{%endblock%}
+{%block body%}
+<div class="container">
+    <h1>Add Course</h1>
+    <div class="box">
+        <form action='/course/add', method='POST'>
+            <div class="form-container">
+                <label for="code">Course Code</label>
+                <input type="text" name='code'>
+                <label for="name">Course Name</label>
+                <input type="text" name='name'>
+                <label for="instructor_id">Instructor</label>
+                {%if instructors|length == 0%}
+                    No instructors in database
+                {%else%}
+                    <select name="instructor_id" id="instructor_id">
+                        {%for instructor in instructors%}
+                            <option value="{{instructor.id}}">{{instructor.fname}} {{instructor.lname}}</option>
+                        {%endfor%}
+                    </select>
+                {%endif%}
+                <label for="department_id">Department</label>
+                {%if departments|length ==0%}
+                    No departments in database
+                {%else%}
+                    <select name="department_id" id="department_id">
+                        {%for department in departments%}
+                            <option value="{{department.id}}">{{department.name}}</option>
+                        {%endfor%}
+                    </select>
+                {%endif%}
+            </div>
+            <button type="submit">Add Course</button>
+        </form>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[3].classList.add('active');
+</script>
+{%endblock%}

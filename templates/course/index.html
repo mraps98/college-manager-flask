@@ -1,0 +1,44 @@
+{%extends 'base.html'%}
+{%block header%}
+<title>Courses</title>
+{%endblock%}
+{%block body%}
+<div class="container">
+    <h1>Courses</h1>
+    <div class="box">
+        <a href="/course/add">Add Course</a>
+        {%if courses|length == 0%}
+            No courses in Database
+        {%else%}
+        <table>
+            <tr>
+                <th>Course ID</th>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Department</th>
+                <th>Instructor</th>
+                <th>Students Enrolled</th>
+                <th>Actions</th>
+            </tr>
+            {%for course in courses%}
+                <tr>
+                    <td>{{course.id}}</td>
+                    <td>{{course.code}}</td>
+                    <td>{{course.name}}</td>
+                    <td>{{course.department.name}}</td>
+                    <td>{{course.instructor.fname}} {{course.instructor.lname}}</td>
+                    <td>{{course.students_enrolled|length}}</td>
+                    <td>
+                        <a href="/course/{{course.id}}/update">Update</a>
+                        <a href="/course/{{course.id}}/students">Students Enrolled</a>
+                    </td>
+                </tr>
+            {%endfor%}
+        </table>
+        {%endif%}
+    </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[3].classList.add('active');
+</script>
+{%endblock%}

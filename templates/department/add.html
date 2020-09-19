@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+{%block header%}
+<title>AddDepartment</title>
+{%endblock%}
+{%block body%}
+<div class="container">
+    <h1>Add Departmnet</h1>
+    <div class="box">
+        <form action="/department/add", method='POST'>
+            <div class="form-container">
+                <label for="name">Name</label>
+                <input type="text" name='name'>
+                <label for="head_id">Head</label>
+                <select name="head_id" id="head_id">
+                    <option value='-1'>None</option>
+                    {%for instructor in instructors%}
+                        <option value="{{instructor.id}}">{{instructor.fname}} {{instructor.lname}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+            <button tpye='submit'>Add Department</button>
+        </form>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[4].classList.add('active');
+</script>
+{%endblock%}

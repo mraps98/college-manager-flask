@@ -1,0 +1,47 @@
+{%extends 'base.html'%}
+{%block header%}
+<title>Update Course</title>
+{%endblock%}
+{%block body%}
+<div class="container">
+    <h1>Update Course</h1>
+    <div class="box">
+        <form action='/course/update', method='POST'>
+            <span style='display:none'>
+                <label for="id">id</label>
+                <input type="text" name='id' value='{{course.id}}'>
+            </span>
+            <div class="form-container">
+                <label for="code">Course Code</label>
+                <input type="text" name='code' value='{{course.code}}'>
+                <label for="name">Course Name</label>
+                <input type="text" name='name' value='{{course.name}}'>
+                <label for="instructor_id">Instructor</label>
+                {%if instructors|length == 0%}
+                    No instructors in database
+                {%else%}
+                    <select name="instructor_id" id="instructor_id">
+                        {%for instructor in instructors%}
+                            <option value="{{instructor.id}}" {%if instructor.id == course.instructor.id%}selected{%endif%}>{{instructor.fname}} {{instructor.lname}}</option>
+                        {%endfor%}
+                    </select>
+                {%endif%}
+                <label for="department_id">Department</label>
+                {%if departments|length ==0%}
+                    No departments in database
+                {%else%}
+                    <select name="department_id" id="department_id">
+                        {%for department in departments%}
+                            <option value="{{department.id}}" {%if department.id == course.department.id%}selected{%endif%}>{{department.name}}</option>
+                        {%endfor%}
+                    </select>
+                {%endif%}
+            </div>
+            <button type="submit">Add Course</button>
+        </form>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[3].classList.add('active');
+</script>
+{%endblock%}

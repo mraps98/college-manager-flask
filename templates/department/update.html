@@ -1,0 +1,32 @@
+{%extends 'base.html'%}
+{%block header%}
+<title>Update Department</title>
+{%endblock%}
+{%block body%}
+<div class="container">
+    <h1>Update Department</h1>
+    <div class="box">
+        <form action="/department/update", method='POST'>
+            <span style='display:none'>
+                <label for="id">ID</label>
+                <input type="text" name='id' value={{department.id}}>
+            </span>
+            <div class="form-container">
+                <label for="name">Name</label>
+                <input type="text" name='name' value="{{department.name}}">
+                <label for="head_id">Head</label>
+                <select name="head_id" id="head_id">
+                    <option value='-1'>None</option>
+                    {%for instructor in instructors%}
+                        <option value="{{instructor.id}}" {%if department.head.id == instructor.id%}selected{%endif%}>{{instructor.fname}} {{instructor.lname}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+            <button tpye='submit'>Update Department</button>
+        </form>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[4].classList.add('active');
+</script>
+{%endblock%}

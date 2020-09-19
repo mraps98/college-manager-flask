@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block header %} 
+<title>Students</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <h1>Students</h1>
+    <div class="box">
+        <a href='/student/add'>Add Student</a>
+        {%if students|length == 0%}
+            No students in the database.
+        {%else%}
+        <table>
+        <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>Major</th>
+            <th>Advisor</th>
+            <th>Actions</th>
+        </tr>
+            {% for student in students %}
+            <tr>
+                <td>{{student.id}}</td>
+                <td>{{student.fname}} {{student.lname}}</td>
+                <td>{{student.dob}}</td>
+                <td>{{student.major.name}}</td>
+                <td>{{student.advisor.fname}} {{student.advisor.lname}}</td>
+                <td>
+                    <a href="/student/{{student.id}}/update">Update</a>
+                    <a href="/student/{{student.id}}/courses">Courses</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {%endif%}
+    </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[1].classList.add('active');
+</script>
+{% endblock %}

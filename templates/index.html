@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block header %} 
+<title>College Manager</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>College Manager</h1>
+    <div class="box">
+        <form action="">
+            <div class="form-container">
+                <label for="name">Name: </label>
+                <label for="name">CollegeManager</label>
+                <label for="purpose">Purpose</label>
+                <label for="purpose">To showcase basic CRUD features in PYTHON FLASK</label>
+                <label for="author">Author</label>
+                <label>Amritpreet Singh</label>
+                <label for="email">Email</label>
+                <label for="email">amritpreet98@gmail.com</label>
+                <label for="github">Github</label>
+                <label for="github"><a href="http://github.com/mraps98">github.com/mraps98</a></label>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[0].classList.add('active');
+</script>
+{% endblock %}

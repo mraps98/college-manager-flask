@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block header %} 
+<title>College Manager</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Update Student</h1>
+    <div class="box">
+        <form action="/student/update" method='POST'>
+            <span style='display:none'>
+                <label for="id">ID</label>
+                <input type="text" value="{{student.id}}" name='id'>
+            </span>
+            <div class="form-container">
+                <label for="fname">First Name</label>
+                <input type="text" value="{{student.fname}}" name='fname'>
+                <label for="lname">Last Name</label>
+                <input type="text" value="{{student.lname}}" name='lname'>
+                <label for="dob">Date of Birth</label>
+                <input type="text" value="{{student.dob}}" name='dob'>
+                <label for="advisor">Advisor</label>
+                <select name="advisor_id" id="advisor">
+                    {% for instructor in instructors %}
+                    <option value="{{instructor.id}}" {% if student.advisor.id == instructor.id %} selected {% endif%}>{{instructor.fname}} {{instructor.lname}}</option>
+                    {% endfor%}
+                </select>
+                <label for="majorid">Major</label>
+                <select name="major_id" id="major">
+                    {% for department in departments %}
+                    <option value="{{department.id}}" {%if student.major.id == department.id%} selected{%endif%}>{{department.name}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+            <button type="submit">Update Student</button>
+        </form>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('nav a')[1].classList.add('active');
+</script>
+{% endblock %}
